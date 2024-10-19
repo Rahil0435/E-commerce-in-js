@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - LAVIEE.SPORT</title>
+    <link rel="stylesheet" href="item.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="./product.js" ></script>
+</head>
+<body>
+    <header>
+        <a href="home.html" class="logo">LAVIEE.SPORT</a>
+        <ul class="navbar">
+            <a href="shop.html">Shop <i class="fa-solid fa-bag-shopping"></i></a>
+            <a href="#">Brands</a>
+            <a href="cart3.html">Cart <i class="fa-solid fa-cart-shopping"></i></a>
+            <a href="#">Contact</a>
+        </ul>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="colmn2">
+                <img src="" width="100%" id="ProductImage">
+                <div class="mini-image" id="mini-images">
+                </div>
+            </div>
+            <div class="colmn2">
+                <p>Home / <span id="product-title">Product</span></p>
+                <h1 id="product-name"><b>Product Name</b></h1>
+                <h4 id="product-price">$0.00</h4>
+                <select id="size-select">
+                    <option value="" disabled selected>Select Size</option>
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                    <option value="X-Large">X-Large</option>
+                </select>
+                <input type="number" id="quantity" value="1" min="1">
+                <br>
+                <button id="add-to-cart-btn" class="btn">
+                    Add to Cart <i class="fa-solid fa-cart-shopping"></i>
+                </button>
+                <h3>Product Details</h3>
+                <p id="product-description">Product description goes here.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Products
+        const products = {
+            1: {
+                id: 1,
+                name: "Black T-shirt",
+                price: 17.99,
+                description: "Comfortable and stylish baggy jeans perfect for casual wear.",
+                images: [
+                    "image/pexels-byb-byb-412101727-28560798.jpg",
+                    "image/n1.jpg",
+                    "image/n2.jpg",
+                    "image/n3.jpg"
+                ]
+            },
+            2: {
+                id: 2,
+                name: "Jeans",
+                price: 18.99,
+                description: "Classic Jeans made from high-quality cotton.",
+                images: [
+                    "image/pexels-dtanpt-1129019.jpg",
+                    "image/jeans.jpg",
+                    "image/jeans1.jpg",
+                    "image/jeans2.jpg"
+                ]
+            },
+            3: {
+                id: 3,
+                name: "Plain Shirts",
+                price: 10.99,
+                description: "Simple and elegant plain shirts suitable for any occasion.",
+                images: [
+                    "image/plain shirt.jpg",
+                    "image/shirt plain1.jpg",
+                    "image/shirt plain2.jpg",
+                    "image/shirt plain3.jpg"
+                ]
+            },
+            4: {
+                id: 4,
+                name: "Blue T-shirt",
+                price: 5.99,
+                description: "Simple and elegant plain T-shirts suitable for any occasion.",
+                images: [
+                    "image/blue T-shirt.jpg",
+                    "image/blue t-shirt1 (1).jpg",
+                    "image/blue t-shirt1 (2).jpg",
+                    "image/blue t-shirt1 (3).jpg"
+                ]
+            },
+            5: {
+                id: 5,
+                name: "Over Coat",
+                price: 12.99,
+                description: "Simple and elegant Over Coat suitable for any occasion.",
+                images: [
+                    "image/coat.jpg",
+                    "image/coat (1).jpg",
+                    "image/coat (2).jpg",
+                    "image/coat (3).jpg"
+                ]
+            },
+            6: {
+                id: 6,
+                name: "Jacket",
+                price: 9.99,
+                description: "Simple and elegant plain Jacket suitable for any occasion.",
+                images: [
+                    "image/jacket.jpg",
+                    "image/jacket (1).jpg",
+                    "image/jacket (2).jpg",
+                    "image/jacket (3).jpg"
+                ]
+            },
+            7: {
+                id: 7,
+                name: "Check Shirt",
+                price: 15.65,
+                description: "Simple and elegant Check shirts suitable for any occasion.",
+                images: [
+                    "image/check shirts.jpg",
+                    "image/check shirt (1).jpg",
+                    "image/check shirt (2).jpg",
+                    "image/check shirt (3).jpg"
+                ]
+            },
+            8: {
+                id: 8,
+                name: "Hoodie",
+                price: 13.00,
+                description: "Simple and elegant Hoodie suitable for any occasion.",
+                images: [
+                    "image/hoodie.jpg",
+                    "image/hoodie (1).jpg",
+                    "image/hoodie (2).jpg",
+                    "image/hoodie (3).jpg"
+                ]
+            },
+            9: {
+                id: 9,
+                name: "Stripe shirt",
+                price: 12.50,
+                description: "Simple and elegant Stripe shirts suitable for any occasion.",
+                images: [
+                    "image/stripe shirts.jpg",
+                    "image/stripe shirt (1).jpg",
+                    "image/stripe shirt (2).jpg",
+                    "image/stripe shirt (3).jpg"
+                ]
+            },
+            10: {
+                id: 10,
+                name: "Grey T-shirt",
+                price: 9.99,
+                description: "Simple and elegant T-shirts suitable for any occasion.",
+                images: [
+                    "image/grey t-shirt.jpg",
+                    "image/tshirt (1).jpg",
+                    "image/tshirt (2).jpg",
+                    "image/tshirt (3).jpg"
+                ]
+            },
+            
+
+        };
+
+        function getURLParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        function loadProduct() {
+            const productId = getURLParameter('product');
+            const product = products[productId];
+
+            if (!product) {
+                document.querySelector('.container').innerHTML = '<h2>Product not found.</h2>';
+                return;
+            }
+
+            document.getElementById('product-title').textContent = product.name;
+            document.getElementById('product-name').innerHTML = `<b>${product.name}</b>`;
+            document.getElementById('product-price').textContent = `$${product.price.toFixed(2)}`;
+            document.getElementById('ProductImage').src = product.images[0];
+            document.getElementById('ProductImage').alt = product.name;
+            document.getElementById('product-description').textContent = product.description;
+
+            //  mini images
+            const miniImagesContainer = document.getElementById('mini-images');
+            miniImagesContainer.innerHTML = ''; 
+
+            product.images.forEach((imgSrc, index) => {
+                const miniCol = document.createElement('div');
+                miniCol.className = 'mini-image-col';
+                miniCol.innerHTML = `<img src="${imgSrc}" width="100%" class="miniImage" alt="${product.name} Image ${index + 1}">`;
+                miniImagesContainer.appendChild(miniCol);
+            });
+
+            // Image 
+            const ProductImage = document.getElementById("ProductImage");
+            const miniImageElements = document.getElementsByClassName("miniImage");
+
+            for (let i = 0; i < miniImageElements.length; i++) {
+                miniImageElements[i].onclick = function() {
+                    ProductImage.src = miniImageElements[i].src;
+                }
+            }
+        }
+
+        // Add to Cart Functionality
+        document.getElementById('add-to-cart-btn').addEventListener('click', function() {
+            const productId = getURLParameter('product');
+            const product = products[productId];
+
+            if (!product) {
+                alert('Product not found!');
+                return;
+            }
+
+            // Get selected size and quantity
+            const selectedSize = document.getElementById('size-select').value;
+            const quantityInput = document.getElementById('quantity');
+            const quantity = parseInt(quantityInput.value);
+
+            if (isNaN(quantity)) {
+                quantityInput.value = 1;
+                return;
+            }
+
+            if (quantity < 1) {
+                alert('Quantity must be greater than 0.');
+                 return;
+            }
+
+            // Validate size selection
+            if (!selectedSize) {
+                alert('Please select a size.');
+                return;
+            }
+
+            // Create product object
+            const cartItem = {
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                size: selectedSize,
+                quantity: quantity,
+                image: product.images[0]
+            };
+
+            let cart = localStorage.getItem('cart');
+            if (cart) {
+                cart = JSON.parse(cart);
+            } else {
+                cart = [];
+            }
+
+            
+            const existingProductIndex = cart.findIndex(item => item.id === cartItem.id && item.size === cartItem.size);
+
+            if (existingProductIndex >= 0) {
+                //  update the quantity
+                cart[existingProductIndex].quantity += cartItem.quantity;
+            } else {
+               
+                cart.push(cartItem);
+            }
+
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+           
+            alert('Item added to cart!');
+            
+            
+        });
+
+        
+        document.addEventListener('DOMContentLoaded', loadProduct);
+    </script>
+</body>
+</html>

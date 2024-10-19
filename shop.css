@@ -1,0 +1,232 @@
+/* Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: black;
+}
+
+body {
+    background-color: #d1cdcd;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    font-size: 45px;
+    font-weight: 800;
+    margin-top: 50px;
+}
+
+header {
+    background-color: #faf5f5;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.05);
+    padding: 14px 14%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 29px;
+    font-weight: 800;
+    color: #300a05;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    list-style: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+    font-size: 22px;
+}
+
+.navbar a {
+    text-decoration: none;
+    margin: 0 30px;
+    font-size: 20px;
+    color: black;
+    transition: transform 0.3s ease;
+}
+
+.navbar a:hover {
+    transform: translateY(-4px);
+}
+
+/* Shop Container */
+.shop {
+    max-width: 1200px;
+    margin: 100px auto 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.item {
+    display: inline-block;
+    margin: 20px;
+    width: 200px;
+    text-align: center;
+}
+
+.item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.item img:hover {
+    transform: translateY(-6px);
+}
+
+.item h2 {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.item p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 42px;
+    background: black;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    border: 2px solid transparent;
+    transition: transform 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(3px);
+}
+
+/* Section for additional content */
+section {
+    color: black;
+    margin: 150px 0;
+    text-align: center;
+}
+
+section h3 {
+    font-size: 20px;
+    font-weight: 900;
+}
+
+section p {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.icon {
+    font-size: 30px;
+    color: black;
+    position: relative;
+}
+
+.icon span {
+    font-size: 16px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 3px 8px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
+/* Media Queries for Responsiveness */
+
+/* Tablets */
+@media (max-width: 768px) {
+    header {
+        padding: 10px 10%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 10px;
+    }
+
+    .navbar a {
+        margin: 5px 0;
+        font-size: 18px;
+    }
+
+    .shop {
+        max-width: 90%;
+    }
+
+    .item {
+        width: 45%;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 12px;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 480px) {
+    header {
+        padding: 10px 5%;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar a {
+        margin: 5px 0;
+        font-size: 16px;
+    }
+
+    .shop {
+        margin-top: 130px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .item {
+        width: 100%;
+    }
+
+    .item h2 {
+        font-size: 18px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    section h3 {
+        font-size: 18px;
+    }
+
+    section p {
+        font-size: 16px;
+    }
+}

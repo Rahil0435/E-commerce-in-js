@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart - LAVIEE.SPORT</title>
+    <link rel="stylesheet" href="cart3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <a href="home.html" class="logo">LAVIEE.SPORT</a>
+
+        <ul class="navbar">
+            <a href="shop.html">Shop <i class="fa-solid fa-bag-shopping"></i></a>
+            <a href="#">Brands</a>
+            <a href="cart3.html">Cart <i class="fa-solid fa-cart-shopping"></i></a>
+            <a href="#">Contact</a>
+        </ul>
+    </header>
+    <div class="cart-container">
+        <h1>Your Cart</h1>
+        <table id="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Sub Total</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+            </tbody>
+        </table>
+
+        <div class="total-price">
+            <table>
+                <tr>
+                    <td>Total</td>
+                    <td>$<span id="cart-total">0.00</span></td>
+                </tr>
+            </table>
+
+            <button id="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to load cart items from localStorage
+        function loadCart() {
+            let cart = localStorage.getItem('cart');
+            if (cart) {
+                cart = JSON.parse(cart);
+            } else {
+                cart = [];
+            }
+
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = ''; // Clear existing items
+
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+
+                const cartRow = document.createElement('tr');
+                cartRow.innerHTML = `
+                    <td>
+                        <div class="cart-info">
+                            <img src="${item.image}" alt="${item.name}">
+                            <div>
+                                <p class="item-name">${item.name}</p>
+                                <small>Size: ${item.size}</small><br>
+                                <small>Price: $${item.price.toFixed(2)}</small><br>
+                                <a href="#" class="remove-item" data-index="${index}">Remove</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="number" value="${item.quantity}" min="1" class="qty-input" data-index="${index}">
+                    </td>
+                    <td>$<span class="item-total">${itemTotal.toFixed(2)}</span></td>
+                `;
+                cartItemsContainer.appendChild(cartRow);
+            });
+
+            document.getElementById('cart-total').textContent = total.toFixed(2);
+
+            // Attach event listeners for quantity changes and remove buttons
+            attachEventListeners();
+        }
+
+        // Function to attach event listeners
+        function attachEventListeners() {
+            // Quantity change
+            const qtyInputs = document.querySelectorAll('.qty-input');
+            qtyInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    const index = this.getAttribute('data-index');
+                    let newQty = parseInt(this.value);
+                    if (isNaN(newQty) || newQty < 1) {
+                        newQty = 1;
+                        this.value = 1;
+                    }
+                    updateQuantity(index, newQty);
+                });
+            });
+
+            // Remove item
+            const removeLinks = document.querySelectorAll('.remove-item');
+            removeLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const index = this.getAttribute('data-index');
+                    removeItem(index);
+                });
+            });
+        }
+
+        // Function to update quantity
+        function updateQuantity(index, quantity) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart[index]) {
+                cart[index].quantity = quantity;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadCart();
+            }
+        }
+
+        // Function to remove item from cart
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart[index]) {
+                cart.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadCart();
+            }
+        }
+
+        // Function to handle checkout
+        document.getElementById('checkout-btn').addEventListener('click', function() {
+            if (confirm('Proceeding to checkout!')) {
+                // Implement checkout functionality here
+                // For now, we'll just clear the cart and redirect to home
+                localStorage.removeItem('cart');
+                alert('Thank you for your purchase!');
+                window.location.href = 'home.html';
+            }
+        });
+
+        // Load cart on page load
+        document.addEventListener('DOMContentLoaded', loadCart);
+    </script>
+</body>
+</html>
